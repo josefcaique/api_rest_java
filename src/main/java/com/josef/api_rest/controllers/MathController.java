@@ -1,5 +1,6 @@
 package com.josef.api_rest.controllers;
 
+import com.josef.api_rest.exception.UnsupportedMathException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ public class MathController {
     public Double sum(@PathVariable("num1") String num1,
                       @PathVariable("num2") String num2)
     {
-        if (!isNumeric(num1) || !isNumeric(num2)) throw new IllegalArgumentException();
+        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsupportedMathException("Please set a numeric value!");
         return convertToDouble(num1) + convertToDouble(num2);
     }
 
@@ -26,7 +27,7 @@ public class MathController {
     }
 
     private Double convertToDouble(String num){
-        if (!isNumeric(num)) throw new IllegalArgumentException();
+        if (!isNumeric(num)) throw new UnsupportedMathException("Please set a numeric value!");
         return Double.parseDouble(num);
     }
 }
