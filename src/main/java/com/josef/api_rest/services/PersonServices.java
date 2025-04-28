@@ -38,4 +38,9 @@ public class PersonServices {
     public void delete(String id) {
         logger.info("Deleting one person!");
     }
+
+    public Person update(Person person) {
+        logger.info("updating person!");
+        return person;
+    }
 }

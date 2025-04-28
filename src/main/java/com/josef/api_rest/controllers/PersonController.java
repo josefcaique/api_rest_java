@@ -38,4 +38,8 @@ public class PersonController {
         services.delete(id);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person update(@RequestBody Person person){
+        return services.update(person);
+    }
 }
