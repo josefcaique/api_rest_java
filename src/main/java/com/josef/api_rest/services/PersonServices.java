@@ -29,4 +29,9 @@ public class PersonServices {
         Person p3 = new Person(counter.incrementAndGet(), "Carlos", "Silva", "Rio de Janeiro - RJ", "Male");
         return new ArrayList<>(Arrays.asList(p1, p2, p3));
     }
+
+    public Person create(Person person) {
+        logger.info("Creating one person!");
+        return person;
+    }
 }

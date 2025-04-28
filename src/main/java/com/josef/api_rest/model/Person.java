@@ -13,7 +13,7 @@ public class Person implements Serializable {
     private String address;
     private String gender;
 
-    public Person(long l){}
+    public Person(){}
 
     public Person(Long id, String firstName, String lastName, String address, String gender) {
         this.id = id;
@@ -22,6 +22,7 @@ public class Person implements Serializable {
         this.address = address;
         this.gender = gender;
     }
+
 
     public Long getId() {
         return id;
