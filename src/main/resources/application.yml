@@ -13,6 +13,6 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
-  logging:
-    level:
-      br.josef.api_rest: INFO
+logging:
+  level:
+    ROOT: WARN
