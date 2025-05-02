@@ -1,5 +1,6 @@
 package com.josef.api_rest.controllers;
 
+import com.josef.api_rest.data.dto.PersonDTO;
 import com.josef.api_rest.model.Person;
 import com.josef.api_rest.services.PersonServices;
 import org.apache.juli.logging.Log;
@@ -21,22 +22,22 @@ public class PersonController {
     private PersonServices services;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable("id") Long id){
+    public PersonDTO findById(@PathVariable("id") Long id){
         return services.findById(id);
     }
 
     @GetMapping()
-    public List<Person> findAll(){
+    public List<PersonDTO> findAll(){
         return services.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person) {
+    public PersonDTO create(@RequestBody PersonDTO person) {
         return services.create(person);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person){
+    public PersonDTO update(@RequestBody PersonDTO person){
         return services.update(person);
     }
 

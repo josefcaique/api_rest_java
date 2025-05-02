@@ -1,6 +1,7 @@
 package com.josef.api_rest.services;
 
 import com.josef.api_rest.controllers.TestLogController;
+import com.josef.api_rest.data.dto.PersonDTO;
 import com.josef.api_rest.exception.ResourceNotFoundException;
 import com.josef.api_rest.model.Person;
 import com.josef.api_rest.repository.PersonRepository;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+
+import static com.josef.api_rest.mapper.ObjectMapper.parseListObjects;
+import static com.josef.api_rest.mapper.ObjectMapper.parseObject;
 
 @Service
 public class PersonServices {
@@ -21,31 +24,34 @@ public class PersonServices {
     PersonRepository repository;
 
 
-    public Person findById(Long id){
+    public PersonDTO findById(Long id){
         logger.info("Finding one person!");
-        return repository.findById(id)
+        var entity =  repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        return parseObject(entity, PersonDTO.class);
     }
 
-    public List<Person> findAll(){
+    public List<PersonDTO> findAll(){
         logger.info("Finding all people!");
-        return repository.findAll();
+        return parseListObjects(repository.findAll(), PersonDTO.class);
     }
 
-    public Person create(Person person) {
+    public PersonDTO create(PersonDTO person) {
         logger.info("Creating one person!");
-        return repository.save(person);
+        var entity = parseObject(person, Person.class);
+        return parseObject(repository.save(entity), PersonDTO.class);
     }
 
     public void delete(Long id) {
         logger.info("Deleting one person!");
-        Person person = findById(id);
-        repository.delete(person);
+        PersonDTO person = findById(id);
+        Person entity = parseObject(person, Person.class);
+        repository.delete(entity);
     }
 
-    public Person update(Person person) {
+    public PersonDTO update(PersonDTO person) {
         logger.info("updating person!");
-        Person entity = findById(person.getId());
+        PersonDTO entity = findById(person.getId());
 
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
