@@ -1,46 +1,57 @@
 package com.josef.api_rest.services;
 
+import com.josef.api_rest.controllers.TestLogController;
+import com.josef.api_rest.exception.ResourceNotFoundException;
 import com.josef.api_rest.model.Person;
+import com.josef.api_rest.repository.PersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
 
 @Service
 public class PersonServices {
 
-    private final AtomicLong counter = new AtomicLong();
-    private Logger logger = Logger.getLogger(PersonServices.class.getName());
+    private Logger logger = LoggerFactory.getLogger(TestLogController.class.getName());
+
+    @Autowired
+    PersonRepository repository;
 
 
-    public Person findById(String id){
+    public Person findById(Long id){
         logger.info("Finding one person!");
-        return new Person(counter.incrementAndGet(), "Leandro", "Costa", "Uberlandia - MG", "Male");
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
     }
 
     public List<Person> findAll(){
         logger.info("Finding all people!");
-        Person p1 = new Person(counter.incrementAndGet(), "Leandro", "Costa", "Uberlandia - MG", "Male");
-        Person p2 = new Person(counter.incrementAndGet(), "Amanda", "Rocha", "Sao Paulo - SP", "Female");
-        Person p3 = new Person(counter.incrementAndGet(), "Carlos", "Silva", "Rio de Janeiro - RJ", "Male");
-        return new ArrayList<>(Arrays.asList(p1, p2, p3));
+        return repository.findAll();
     }
 
     public Person create(Person person) {
         logger.info("Creating one person!");
-        return person;
+        return repository.save(person);
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         logger.info("Deleting one person!");
+        Person person = findById(id);
+        repository.delete(person);
     }
 
     public Person update(Person person) {
         logger.info("updating person!");
-        return person;
+        Person entity = findById(person.getId());
+
+        entity.setFirstName(person.getFirstName());
+        entity.setLastName(person.getLastName());
+        entity.setAddress(person.getAddress());
+        entity.setGender(person.getGender());
+
+        return entity;
     }
 }

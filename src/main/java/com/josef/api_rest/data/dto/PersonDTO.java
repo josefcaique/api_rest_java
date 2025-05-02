@@ -1,35 +1,24 @@
-package com.josef.api_rest.model;
+package com.josef.api_rest.data.dto;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name="person")
-public class Person implements Serializable {
+
+public class PersonDTO implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
-
-    @Column(nullable = false, length = 255)
     private String address;
-
-    @Column(nullable = false, length = 10)
     private String gender;
 
-    public Person(){}
+    public PersonDTO(){}
 
-    public Person(Long id, String firstName, String lastName, String address, String gender) {
+    public PersonDTO(Long id, String firstName, String lastName, String address, String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -82,7 +71,7 @@ public class Person implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        PersonDTO person = (PersonDTO) o;
         return Objects.equals(id, person.id);
     }
 
