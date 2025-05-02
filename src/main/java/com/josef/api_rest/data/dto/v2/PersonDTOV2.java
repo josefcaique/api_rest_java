@@ -1,24 +1,24 @@
-package com.josef.api_rest.data.dto;
-
-import jakarta.persistence.*;
+package com.josef.api_rest.data.dto.v2;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 
-public class PersonDTO implements Serializable {
+public class PersonDTOV2 implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 
     private Long id;
     private String firstName;
     private String lastName;
+    private Date birthDay;
     private String address;
     private String gender;
 
-    public PersonDTO(){}
+    public PersonDTOV2(){}
 
-    public PersonDTO(Long id, String firstName, String lastName, String address, String gender) {
+    public PersonDTOV2(Long id, String firstName, String lastName, String address, String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -67,11 +67,19 @@ public class PersonDTO implements Serializable {
         this.gender = gender;
     }
 
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonDTO person = (PersonDTO) o;
+        PersonDTOV2 person = (PersonDTOV2) o;
         return Objects.equals(id, person.id);
     }
 

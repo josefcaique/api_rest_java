@@ -1,16 +1,13 @@
 package com.josef.api_rest.controllers;
 
-import com.josef.api_rest.data.dto.PersonDTO;
-import com.josef.api_rest.model.Person;
+import com.josef.api_rest.data.dto.v1.PersonDTO;
+import com.josef.api_rest.data.dto.v2.PersonDTOV2;
 import com.josef.api_rest.services.PersonServices;
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 
@@ -45,6 +42,13 @@ public class PersonController {
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         services.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Controller to V2
+
+    @PostMapping(name="/v2", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDTOV2 create(@RequestBody PersonDTOV2 person) {
+        return services.createV2(person);
     }
 
 
