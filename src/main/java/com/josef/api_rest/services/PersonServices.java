@@ -2,7 +2,9 @@ package com.josef.api_rest.services;
 
 import com.josef.api_rest.controllers.TestLogController;
 import com.josef.api_rest.data.dto.v1.PersonDTO;
+import com.josef.api_rest.data.dto.v2.PersonDTOV2;
 import com.josef.api_rest.exception.ResourceNotFoundException;
+import com.josef.api_rest.mapper.custom.PersonMapper;
 import com.josef.api_rest.model.Person;
 import com.josef.api_rest.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -23,6 +25,8 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
+    @Autowired
+    PersonMapper converter;
 
     public PersonDTO findById(Long id){
         logger.info("Finding one person!");
@@ -62,8 +66,8 @@ public class PersonServices {
     }
 
     public PersonDTOV2 createV2(PersonDTOV2 person) {
-        logger.info("Creating one person!");
-        var entity = parseObject(person, Person.class);
-        return parseObject(repository.save(entity), PersonDTO.class);
+        logger.info("Creating one person v2!");
+        var entity = converter.convertDTO2Entity(person);
+        return converter.convertEntity2DTO(repository.save(entity));
     }
 }
