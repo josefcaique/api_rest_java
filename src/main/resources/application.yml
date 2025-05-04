@@ -8,7 +8,7 @@ spring:
     password: admin
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
     show-sql: false
@@ -17,4 +17,4 @@ server:
   port: 8090
 logging:
   level:
-    ROOT: WARN
+    ROOT: INFO

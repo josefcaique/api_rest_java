@@ -1,10 +1,11 @@
-package com.josef.api_rest.unitetests.mapper;
+package com.josef.api_rest.unitetests.mapper.mocks;
+
+import com.josef.api_rest.data.dto.v1.PersonDTO;
+import com.josef.api_rest.model.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.erudio.data.dto.PersonDTO;
-import br.com.erudio.model.Person;
 
 public class MockPerson {
 
