@@ -1,17 +1,34 @@
 package com.josef.api_rest.data.dto.v1;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.josef.api_rest.serializer.GenderSerializer;
+import com.sun.tools.rngom.digested.DPattern;
+
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-
+// @JsonPropertyOrder({"id", "address", "firstName", "lastName", "gender"})
 public class PersonDTO implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 
     private Long id;
+
+    // @JsonProperty("first_name")
     private String firstName;
+
+    // @JsonProperty("last_name")
     private String lastName;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date birthDay;
     private String address;
+
+    @JsonSerialize(using = GenderSerializer.class)
     private String gender;
 
     public PersonDTO(){}
@@ -64,6 +81,10 @@ public class PersonDTO implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public Date getBirthDay() { return birthDay;}
+
+    public void setBirthDay(Date birthDay) { this.birthDay = birthDay; }
 
     @Override
     public boolean equals(Object o) {
