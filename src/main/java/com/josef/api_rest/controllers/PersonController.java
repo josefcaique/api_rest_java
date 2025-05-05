@@ -19,7 +19,7 @@ public class PersonController {
     @Autowired
     private PersonServices services;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonDTO findById(@PathVariable("id") Long id){
         var person = services.findById(id);
         person.setBirthDay(new Date());
@@ -28,17 +28,17 @@ public class PersonController {
         return person;
     }
 
-    @GetMapping()
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<PersonDTO> findAll(){
         return services.findAll();
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonDTO create(@RequestBody PersonDTO person) {
         return services.create(person);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonDTO update(@RequestBody PersonDTO person){
         return services.update(person);
     }
@@ -51,7 +51,7 @@ public class PersonController {
 
     // Controller to V2
 
-    @PostMapping(value="/v2", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/v2", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonDTOV2 create(@RequestBody PersonDTOV2 person) {
         return services.createV2(person);
     }
