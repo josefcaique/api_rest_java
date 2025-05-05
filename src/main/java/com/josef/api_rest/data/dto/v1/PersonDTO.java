@@ -1,8 +1,6 @@
 package com.josef.api_rest.data.dto.v1;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.josef.api_rest.serializer.GenderSerializer;
 import com.sun.tools.rngom.digested.DPattern;
@@ -12,6 +10,7 @@ import java.util.Date;
 import java.util.Objects;
 
 // @JsonPropertyOrder({"id", "address", "firstName", "lastName", "gender"})
+@JsonFilter("PersonFilter")
 public class PersonDTO implements Serializable {
 
     private static final long SerialVersionUID = 1L;
@@ -22,7 +21,11 @@ public class PersonDTO implements Serializable {
     private String firstName;
 
     // @JsonProperty("last_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String lastName;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String phoneNumber;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthDay;
@@ -30,6 +33,8 @@ public class PersonDTO implements Serializable {
 
     @JsonSerialize(using = GenderSerializer.class)
     private String gender;
+
+    private String sensitiveData;
 
     public PersonDTO(){}
 
@@ -85,6 +90,18 @@ public class PersonDTO implements Serializable {
     public Date getBirthDay() { return birthDay;}
 
     public void setBirthDay(Date birthDay) { this.birthDay = birthDay; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getSensitiveData() {
+        return sensitiveData;
+    }
+
+    public void setSensitiveData(String sensitiveData) {
+        this.sensitiveData = sensitiveData;
+    }
 
     @Override
     public boolean equals(Object o) {
