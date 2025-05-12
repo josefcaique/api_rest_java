@@ -2,8 +2,10 @@ package com.josef.api_rest.data.dto.v1;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.josef.api_rest.model.Person;
 import com.josef.api_rest.serializer.GenderSerializer;
 import com.sun.tools.rngom.digested.DPattern;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +13,7 @@ import java.util.Objects;
 
 // @JsonPropertyOrder({"id", "address", "firstName", "lastName", "gender"})
 @JsonFilter("PersonFilter")
-public class PersonDTO implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 

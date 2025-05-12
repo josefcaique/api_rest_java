@@ -1,5 +1,6 @@
 package com.josef.api_rest.services;
 
+import com.josef.api_rest.controllers.PersonController;
 import com.josef.api_rest.controllers.TestLogController;
 import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.data.dto.v2.PersonDTOV2;
@@ -11,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import java.util.List;
 
 import static com.josef.api_rest.mapper.ObjectMapper.parseListObjects;
 import static com.josef.api_rest.mapper.ObjectMapper.parseObject;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class PersonServices {
@@ -32,7 +35,9 @@ public class PersonServices {
         logger.info("Finding one person!");
         var entity =  repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-        return parseObject(entity, PersonDTO.class);
+        var dto = parseObject(entity, PersonDTO.class);
+        dto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel().withType("GET"));
+        return dto;
     }
 
     public List<PersonDTO> findAll(){
