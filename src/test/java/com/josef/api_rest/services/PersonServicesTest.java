@@ -50,6 +50,13 @@ class PersonServicesTest {
                 .anyMatch(link -> link.getRel().value().equals("self")
                         && link.getHref().endsWith("/api/person/1")
                         && link.getType().equals("GET")));
+
+        assertNotNull(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("create")
+                        && link.getHref().endsWith("/api/person/1")
+                        && link.getType().equals("POST")));
+
+
     }
 
 
