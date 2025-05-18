@@ -76,6 +76,11 @@ class PersonServicesTest {
                         && link.getHref().endsWith("person/v1/1")
                         && Objects.equals(link.getType(), "DELETE"))
         );
+
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Address Test1", result.getAddress());
+        assertEquals("Female", result.getGender());
     }
 
     @Test
