@@ -63,15 +63,17 @@ public class PersonServices {
         repository.delete(entity);
     }
 
-    public PersonDTO update(PersonDTO person) {
+    public PersonDTO update(PersonDTO personDTO) {
         logger.info("updating person!");
-        PersonDTO entity = findById(person.getId());
+        PersonDTO entity = findById(personDTO.getId());
 
-        entity.setFirstName(person.getFirstName());
-        entity.setLastName(person.getLastName());
-        entity.setAddress(person.getAddress());
-        entity.setGender(person.getGender());
+        entity.setFirstName(personDTO.getFirstName());
+        entity.setLastName(personDTO.getLastName());
+        entity.setAddress(personDTO.getAddress());
+        entity.setGender(personDTO.getGender());
 
+        Person person = parseObject(entity, Person.class);
+        repository.save(person);
         addHateoasLinks(entity);
         return entity;
     }

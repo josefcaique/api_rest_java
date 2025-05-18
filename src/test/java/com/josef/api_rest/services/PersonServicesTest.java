@@ -1,5 +1,6 @@
 package com.josef.api_rest.services;
 
+import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.model.Person;
 import com.josef.api_rest.repository.PersonRepository;
 import com.josef.api_rest.unitetests.mapper.mocks.MockPerson;
@@ -85,6 +86,52 @@ class PersonServicesTest {
 
     @Test
     void create() {
+        Person person = input.mockEntity(1);
+        person.setId(1L);
+
+        PersonDTO dto = input.mockDTO(1);
+
+        when(repository.save(person)).thenReturn(person);
+
+        var result = services.create(dto);
+
+        assertNotNull(result);
+        assertNotNull(result.getId());
+        assertNotNull(result.getLinks());
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("self")
+                        && link.getHref().endsWith("person/v1/1")
+                        && Objects.equals(link.getType(), "GET"))
+        );
+
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("findAll")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "GET"))
+        );
+
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("create")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "POST"))
+        );
+
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("update")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "UPDATE"))
+        );
+
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("delete")
+                        && link.getHref().endsWith("person/v1/1")
+                        && Objects.equals(link.getType(), "DELETE"))
+        );
+
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Address Test1", result.getAddress());
+        assertEquals("Female", result.getGender());
     }
 
     @Test
@@ -93,6 +140,54 @@ class PersonServicesTest {
 
     @Test
     void update() {
+        Person person = input.mockEntity(1);
+        Person persisted = person;
+        persisted.setId(1L);
+
+        PersonDTO dto = input.mockDTO(1);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(person));
+        when(repository.save(person)).thenReturn(persisted);
+
+        var result = services.update(dto);
+
+        assertNotNull(result);
+        assertNotNull(result.getId());
+        assertNotNull(result.getLinks());
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("self")
+                        && link.getHref().endsWith("person/v1/1")
+                        && Objects.equals(link.getType(), "GET"))
+        );
+
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("findAll")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "GET"))
+        );
+
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("create")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "POST"))
+        );
+
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("update")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "UPDATE"))
+        );
+
+        assertTrue(result.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("delete")
+                        && link.getHref().endsWith("person/v1/1")
+                        && Objects.equals(link.getType(), "DELETE"))
+        );
+
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Address Test1", result.getAddress());
+        assertEquals("Female", result.getGender());
     }
 
     @Test
