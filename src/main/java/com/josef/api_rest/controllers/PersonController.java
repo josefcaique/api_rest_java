@@ -19,31 +19,31 @@ public class PersonController {
     @Autowired
     private PersonServices services;
 
-    @GetMapping(value = "v1/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @GetMapping(value = "/v1/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonDTO findById(@PathVariable("id") Long id){
         var person = services.findById(id);
         person.setBirthDay(new Date());
         person.setPhoneNumber("+55 (34) 98765-4321");
-        person.setSensitiveData("Foo Bar");it
+        person.setSensitiveData("Foo Bar");
         return person;
     }
 
-    @GetMapping(value="v1/", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @GetMapping(value="/v1", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<PersonDTO> findAll(){
         return services.findAll();
     }
 
-    @PostMapping(value="v1/", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PostMapping(value="/v1", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonDTO create(@RequestBody PersonDTO person) {
         return services.create(person);
     }
 
-    @PutMapping(value="v1/", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PutMapping(value="/v1", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonDTO update(@RequestBody PersonDTO person){
         return services.update(person);
     }
 
-    @DeleteMapping(value="v1/{id}")
+    @DeleteMapping(value="/v1/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         services.delete(id);
         return ResponseEntity.noContent().build();
