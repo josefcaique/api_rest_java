@@ -18,7 +18,7 @@ import java.util.Objects;
 //@JsonFilter("PersonFilter")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Person")
-public class PersonDTO implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class PersonDTO implements Serializable {
 
     @JsonSerialize(using = GenderSerializer.class)
     private String gender;
-gi
+
     private String sensitiveData;
 
     public PersonDTO(){}
