@@ -1,6 +1,7 @@
 package com.josef.api_rest.services;
 
 import com.josef.api_rest.data.dto.v1.PersonDTO;
+import com.josef.api_rest.exception.RequiredObjectIsNullException;
 import com.josef.api_rest.model.Person;
 import com.josef.api_rest.repository.PersonRepository;
 import com.josef.api_rest.unitetests.mapper.mocks.MockPerson;
@@ -135,6 +136,19 @@ class PersonServicesTest {
     }
 
     @Test
+    void testCreateWithNullPerson(){
+        Exception exception = assertThrows(RequiredObjectIsNullException.class,
+                () -> {
+                    services.create(null);
+                });
+
+        String exceptedMessage = "it is not allowed to persist a null object";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(exceptedMessage));
+    }
+
+    @Test
     void delete() {
         Person person = input.mockEntity(1);
         person.setId(1L);
@@ -148,13 +162,12 @@ class PersonServicesTest {
     @Test
     void update() {
         Person person = input.mockEntity(1);
-        Person persisted = person;
-        persisted.setId(1L);
+        person.setId(1L);
 
         PersonDTO dto = input.mockDTO(1);
 
         when(repository.findById(1L)).thenReturn(Optional.of(person));
-        when(repository.save(person)).thenReturn(persisted);
+        when(repository.save(person)).thenReturn(person);
 
         var result = services.update(dto);
 
@@ -195,6 +208,19 @@ class PersonServicesTest {
         assertEquals("Last Name Test1", result.getLastName());
         assertEquals("Address Test1", result.getAddress());
         assertEquals("Female", result.getGender());
+    }
+
+    @Test
+    void testUpdateWithNullPerson(){
+        Exception exception = assertThrows(RequiredObjectIsNullException.class,
+                () -> {
+                    services.create(null);
+                });
+
+        String exceptedMessage = "it is not allowed to persist a null object";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(exceptedMessage));
     }
 
     @Test

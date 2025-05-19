@@ -4,6 +4,7 @@ import com.josef.api_rest.controllers.PersonController;
 import com.josef.api_rest.controllers.TestLogController;
 import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.data.dto.v2.PersonDTOV2;
+import com.josef.api_rest.exception.RequiredObjectIsNullException;
 import com.josef.api_rest.exception.ResourceNotFoundException;
 import com.josef.api_rest.mapper.custom.PersonMapper;
 import com.josef.api_rest.model.Person;
@@ -48,6 +49,9 @@ public class PersonServices {
     }
 
     public PersonDTO create(PersonDTO person) {
+
+        if (person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Creating one person!");
         var entity = parseObject(person, Person.class);
         var dto = parseObject(repository.save(entity), PersonDTO.class);
@@ -64,6 +68,9 @@ public class PersonServices {
     }
 
     public PersonDTO update(PersonDTO personDTO) {
+
+        if (personDTO == null) throw new RequiredObjectIsNullException();
+
         logger.info("updating person!");
         PersonDTO entity = findById(personDTO.getId());
 
