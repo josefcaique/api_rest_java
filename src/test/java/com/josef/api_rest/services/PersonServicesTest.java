@@ -157,6 +157,7 @@ class PersonServicesTest {
         services.delete(1L);
         verify(repository, times(1)).findById(anyLong());
         verify(repository, times(1)).delete(any(Person.class));
+        verifyNoInteractions(repository a);
     }
 
     @Test
