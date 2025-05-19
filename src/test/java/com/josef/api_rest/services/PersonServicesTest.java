@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -226,5 +227,92 @@ class PersonServicesTest {
 
     @Test
     void findAll() {
+        List<Person> list = input.mockEntityList();
+        when(repository.findAll()).thenReturn(list);
+        List<PersonDTO> people = services.findAll();
+
+        assertNotNull(people);
+        assertEquals(14, people.size());
+
+        var person1 = people.get(1);
+
+        assertNotNull(person1);
+        assertNotNull(person1.getId());
+        assertNotNull(person1.getLinks());
+        assertTrue(person1.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("self")
+                        && link.getHref().endsWith("person/v1/1")
+                        && Objects.equals(link.getType(), "GET"))
+        );
+
+        assertTrue(person1.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("findAll")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "GET"))
+        );
+
+        assertTrue(person1.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("create")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "POST"))
+        );
+
+        assertTrue(person1.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("update")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "UPDATE"))
+        );
+
+        assertTrue(person1.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("delete")
+                        && link.getHref().endsWith("person/v1/1")
+                        && Objects.equals(link.getType(), "DELETE"))
+        );
+
+        assertEquals("First Name Test1", person1.getFirstName());
+        assertEquals("Last Name Test1", person1.getLastName());
+        assertEquals("Address Test1", person1.getAddress());
+        assertEquals("Female", person1.getGender());
+
+        var person2 = people.get(2);
+
+        System.out.println(person2);
+        assertNotNull(person2);
+        assertNotNull(person2.getId());
+        assertNotNull(person2.getLinks());
+        assertTrue(person2.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("self")
+                        && link.getHref().endsWith("person/v1/2")
+                        && Objects.equals(link.getType(), "GET"))
+        );
+
+        assertTrue(person2.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("findAll")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "GET"))
+        );
+
+        assertTrue(person2.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("create")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "POST"))
+        );
+
+        assertTrue(person2.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("update")
+                        && link.getHref().endsWith("person/v1")
+                        && Objects.equals(link.getType(), "UPDATE"))
+        );
+
+        assertTrue(person2.getLinks().stream()
+                .anyMatch(link -> link.getRel().value().equals("delete")
+                        && link.getHref().endsWith("person/v1/2")
+                        && Objects.equals(link.getType(), "DELETE"))
+        );
+
+        assertEquals("First Name Test2", person2.getFirstName());
+        assertEquals("Last Name Test2", person2.getLastName());
+        assertEquals("Address Test2", person2.getAddress());
+        assertEquals("Male", person2.getGender());
     }
 }
