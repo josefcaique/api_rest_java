@@ -1,14 +1,33 @@
 package com.josef.api_rest.model;
 
+import jakarta.persistence.*;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Book {
+@Entity(name="books")
+@Table
+public class Book implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+
+    @Column
     private String author;
+
+    @Column(name = "launch_date")
     private Date launchDate;
+
+    @Column
     private Double price;
+
+    @Column
     private String title;
 
     public Book(){}
