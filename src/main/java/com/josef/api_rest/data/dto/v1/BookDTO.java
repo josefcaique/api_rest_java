@@ -3,6 +3,9 @@ package com.josef.api_rest.data.dto.v1;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.josef.api_rest.model.Book;
 import jakarta.persistence.Column;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
@@ -10,6 +13,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Book")
 public class BookDTO extends RepresentationModel<BookDTO> implements Serializable {
 
     @Serial
