@@ -1,5 +1,6 @@
 package com.josef.api_rest.mapper.custom;
 
+import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.data.dto.v2.PersonDTOV2;
 import com.josef.api_rest.model.Person;
 import org.springframework.stereotype.Service;
@@ -9,8 +10,8 @@ import java.util.Date;
 @Service
 public class PersonMapper {
 
-    public PersonDTOV2 convertEntity2DTO(Person person) {
-        PersonDTOV2 dto = new PersonDTOV2();
+    public PersonDTO convertEntity2DTO(Person person) {
+        PersonDTO dto = new PersonDTO();
         dto.setId(person.getId());
         dto.setFirstName(person.getFirstName());
         dto.setLastName(person.getLastName());
