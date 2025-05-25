@@ -1,7 +1,9 @@
 package com.josef.api_rest.controllers;
 
+import com.josef.api_rest.controllers.docs.BookControllerDocs;
 import com.josef.api_rest.data.dto.v1.BookDTO;
 import com.josef.api_rest.services.BookService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.MediaType;
@@ -12,7 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/book")
-public class BookController {
+@Tag(name = "Book", description = "Endpoits for Managing books")
+public class BookController implements BookControllerDocs {
 
     @Autowired
     private BookService service;
