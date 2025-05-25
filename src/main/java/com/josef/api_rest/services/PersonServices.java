@@ -85,11 +85,6 @@ public class PersonServices {
         return entity;
     }
 
-    public PersonDTO createV2(PersonDTOV2 person) {
-        logger.info("Creating one person v2!");
-        var entity = converter.convertDTO2Entity(person);
-        return converter.convertEntity2DTO(repository.save(entity));
-    }
 
 
     private void addHateoasLinks(PersonDTO dto) {

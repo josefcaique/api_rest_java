@@ -57,11 +57,6 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity.noContent().build();
     }
 
-    // Controller to V2
-    @PostMapping(value = "/v2", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public PersonDTOV2 createV2(@RequestBody PersonDTOV2 person) {
-        return services.createV2(person);
-    }
 
 
 }
