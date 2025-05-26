@@ -49,6 +49,7 @@ public class BookService {
     }
 
     public BookDTO create(BookDTO book) {
+
         if (book == null) throw new RequiredObjectIsNullException();
 
         logger.info("Creating a new book");

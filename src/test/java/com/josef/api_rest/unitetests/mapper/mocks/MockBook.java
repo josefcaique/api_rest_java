@@ -39,19 +39,21 @@ public class MockBook {
     
     public Book mockEntity(Integer number) {
         Book book = new Book();
+        book.setId(number.longValue());
         book.setAuthor("Author Test" + number);
-        book.setTitle("Title test" + number);
+        book.setTitle("Title Test" + number);
         book.setPrice((double) number);
-        book.setLaunchDate(new Date());
+        book.setLaunchDate(new Date(2025,5,25));
         return book;
     }
 
     public BookDTO mockDTO(Integer number) {
         BookDTO book = new BookDTO();
+        book.setId(number.longValue());
         book.setAuthor("Author Test" + number);
         book.setTitle("Title test" + number);
         book.setPrice((double) number);
-        book.setLaunchDate(new Date());
+        book.setLaunchDate(new Date(2025,5,25));
         return book;
     }
 
