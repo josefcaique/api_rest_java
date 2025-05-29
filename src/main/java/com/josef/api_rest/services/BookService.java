@@ -27,7 +27,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Service
 public class BookService {
 
-    private Logger logger = LoggerFactory.getLogger(TestLogController.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(TestLogController.class.getName());
 
     @Autowired
     BookRepository repository;
