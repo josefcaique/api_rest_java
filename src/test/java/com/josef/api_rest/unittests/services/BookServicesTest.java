@@ -1,10 +1,10 @@
-package com.josef.api_rest.services;
+package com.josef.api_rest.unittests.services;
 
 import com.josef.api_rest.data.dto.v1.BookDTO;
 import com.josef.api_rest.exception.RequiredObjectIsNullException;
 import com.josef.api_rest.model.Book;
 import com.josef.api_rest.repository.BookRepository;
-import com.josef.api_rest.unitetests.mapper.mocks.MockBook;
+import com.josef.api_rest.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.josef.api_rest.mapper.ObjectMapper.parseObject;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

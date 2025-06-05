@@ -2,7 +2,7 @@ package com.josef.api_rest.controllers;
 
 import com.josef.api_rest.controllers.docs.BookControllerDocs;
 import com.josef.api_rest.data.dto.v1.BookDTO;
-import com.josef.api_rest.services.BookService;
+import com.josef.api_rest.unittests.services.BookService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 

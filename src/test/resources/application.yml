@@ -1,9 +1,8 @@
 spring:
+  application:
+    name: rest-spring-boot
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jpaspringboot?useTimeZone=true&serverTimeZone=UTC
-    username: root
-    password: admin
   jpa:
     hibernate:
       ddl-auto: none
@@ -11,4 +10,12 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
-
+server:
+  port: 8888
+logging:
+  level:
+    ROOT: INFO
+spring-doc:
+  paths-to-match: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true

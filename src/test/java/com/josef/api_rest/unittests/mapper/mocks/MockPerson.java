@@ -1,4 +1,4 @@
-package com.josef.api_rest.unitetests.mapper.mocks;
+package com.josef.api_rest.unittests.mapper.mocks;
 
 import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.model.Person;

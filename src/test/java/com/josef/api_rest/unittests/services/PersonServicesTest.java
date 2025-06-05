@@ -1,10 +1,10 @@
-package com.josef.api_rest.services;
+package com.josef.api_rest.unittests.services;
 
 import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.exception.RequiredObjectIsNullException;
 import com.josef.api_rest.model.Person;
 import com.josef.api_rest.repository.PersonRepository;
-import com.josef.api_rest.unitetests.mapper.mocks.MockPerson;
+import com.josef.api_rest.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
