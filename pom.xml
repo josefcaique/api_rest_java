@@ -100,8 +100,7 @@
 
 		<dependency>
 			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured-bom</artifactId>
-			<version>5.5.0</version>
+			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
