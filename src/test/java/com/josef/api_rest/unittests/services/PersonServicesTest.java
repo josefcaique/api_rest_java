@@ -2,6 +2,7 @@ package com.josef.api_rest.unittests.services;
 
 import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.exception.RequiredObjectIsNullException;
+import com.josef.api_rest.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.josef.api_rest.model.Person;
 import com.josef.api_rest.repository.PersonRepository;
 import com.josef.api_rest.unittests.mapper.mocks.MockPerson;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
-class PersonServicesTest {
+class PersonServicesTest extends AbstractIntegrationTest{
 
     MockPerson input;
 

@@ -12,10 +12,15 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 @ContextConfiguration(initializers = AbstractIntegrationTest.Initializer.class)
-public class AbstractIntegrationTest {
+public abstract class AbstractIntegrationTest {
+
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-        static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:9.1.0");
+        static final MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.36")
+                .withDatabaseName("testdb")
+                .withUsername("test")
+                .withPassword("test")
+                .withUrlParam("useSSL", "false");
 
         private void startContainers() {
             Startables.deepStart(Stream.of(mysql)).join();
@@ -24,20 +29,14 @@ public class AbstractIntegrationTest {
         @Override
         public void initialize(ConfigurableApplicationContext applicationContext) {
             startContainers();
-            ConfigurableEnvironment enviroment = applicationContext.getEnvironment();
-            MapPropertySource testcontainers = new MapPropertySource("testcontainers",
-                    createConnectionConfiguration());
-            enviroment.getPropertySources().addFirst(testcontainers);
-        }
-
-        private static Map<String, Object> createConnectionConfiguration() {
-            return Map.of(
+            ConfigurableEnvironment environment = applicationContext.getEnvironment();
+            Map<String, Object> props = Map.of(
                     "spring.datasource.url", mysql.getJdbcUrl(),
                     "spring.datasource.username", mysql.getUsername(),
-                    "spring.datasource.password", mysql.getPassword()
+                    "spring.datasource.password", mysql.getPassword(),
+                    "spring.datasource.driver-class-name", "com.mysql.cj.jdbc.Driver"
             );
+            environment.getPropertySources().addFirst(new MapPropertySource("testcontainers", props));
         }
-
-
     }
 }
