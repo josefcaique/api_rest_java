@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-
+//@CrossOrigin(origins = "http://localhost:8090")
 @RestController
 @RequestMapping("api/person")
 @Tag(name = "People", description = "Endpoits for Managing people")
@@ -21,6 +21,7 @@ public class PersonController implements PersonControllerDocs {
     @Autowired
     private PersonServices services;
 
+    @CrossOrigin(origins = "http://localhost:8090")
     @GetMapping(value = "/v1/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override
     public PersonDTO findById(@PathVariable("id") Long id){
@@ -37,6 +38,7 @@ public class PersonController implements PersonControllerDocs {
         return services.findAll();
     }
 
+    @CrossOrigin(origins = "http://localhost:8090")
     @PostMapping(value = "/v1", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override
     public PersonDTO create(@RequestBody PersonDTO person) {

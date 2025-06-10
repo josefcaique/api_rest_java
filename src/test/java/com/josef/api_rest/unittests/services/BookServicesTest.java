@@ -2,6 +2,7 @@ package com.josef.api_rest.unittests.services;
 
 import com.josef.api_rest.data.dto.v1.BookDTO;
 import com.josef.api_rest.exception.RequiredObjectIsNullException;
+import com.josef.api_rest.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.josef.api_rest.model.Book;
 import com.josef.api_rest.repository.BookRepository;
 import com.josef.api_rest.unittests.mapper.mocks.MockBook;
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
-class BookServicesTest {
+class BookServicesTest extends AbstractIntegrationTest {
 
     MockBook input;
 
