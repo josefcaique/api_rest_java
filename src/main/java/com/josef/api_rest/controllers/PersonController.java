@@ -45,7 +45,6 @@ public class PersonController implements PersonControllerDocs {
         return services.create(person);
     }
 
-    @CrossOrigin(origins = "http://localhost:8090")
     @PutMapping(value = "/v1", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override
     public PersonDTO update(@RequestBody PersonDTO person){
