@@ -5,6 +5,6 @@ public interface TestConfigs {
 
     String HEADER_PARAM_AUTHORIZATION = "Authorization";
     String HEADER_PARAM_ORIGIN = "Origin";
-    String ORIGIN_JOSEF = "https://www.erudio.com.br";
+    String ORIGIN_JOSEF = "http://localhost:8090";
     String ORIGIN_SEMERU = "https://teste.com";
 }

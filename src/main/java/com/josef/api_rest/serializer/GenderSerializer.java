@@ -11,7 +11,7 @@ public class GenderSerializer extends JsonSerializer<String> {
     // Define just two types of gender
     @Override
     public void serialize(String gender, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        String formatedGender = "Male".equals(gender) ? "M" : "F";
+        String formatedGender = "Male".equals(gender) ? "F" : "M";
         jsonGenerator.writeString(formatedGender);
     }
 }

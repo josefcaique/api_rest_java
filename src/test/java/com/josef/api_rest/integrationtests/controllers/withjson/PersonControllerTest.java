@@ -17,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -30,7 +29,7 @@ class PersonControllerTest extends AbstractIntegrationTest {
     @BeforeEach
     void setUp() {
         objectMapper = new ObjectMapper();
-        objectMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         person = new PersonDTO();
     }
@@ -75,7 +74,7 @@ class PersonControllerTest extends AbstractIntegrationTest {
         Assertions.assertEquals("Richard", createdPerson.getFirstName());
         Assertions.assertEquals("Stallman", createdPerson.getLastName());
         Assertions.assertEquals("New York city", createdPerson.getAddress());
-        Assertions.assertEquals("Male", createdPerson.getGender());
+        Assertions.assertEquals("M", createdPerson.getGender());
     }
 
     @Test
