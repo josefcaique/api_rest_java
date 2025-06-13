@@ -78,7 +78,7 @@ class PersonControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(1)
+    @Order(2)
     void createWithWrongOrigin() throws JsonProcessingException {
         mockPerson();
 
@@ -106,19 +106,30 @@ class PersonControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    void findById() {
-    }
+    @Order(3)
+    void findById() throws JsonProcessingException {
+        specification = new RequestSpecBuilder()
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_JOSEF)
+                .setBasePath("api/person/v1")
+                .setPort(TestConfigs.SERVER_PORT)
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+                .build();
 
-    @Test
-    void update() {
-    }
 
-    @Test
-    void delete() {
-    }
+        var content = given(specification)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .pathParam("id", person.getId())
+                .when()
+                .get("{id}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
 
-    @Test
-    void findAll() {
+        PersonDTO createdPerson =  objectMapper.readValue(content, PersonDTO.class);
+        person = createdPerson;
     }
 
     private void mockPerson() {
