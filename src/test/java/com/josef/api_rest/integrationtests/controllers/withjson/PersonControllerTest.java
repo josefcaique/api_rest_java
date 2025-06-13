@@ -60,7 +60,6 @@ class PersonControllerTest extends AbstractIntegrationTest {
                 .asString();
 
         PersonDTO createdPerson =  objectMapper.readValue(content, PersonDTO.class);
-
         person = createdPerson;
 
         Assertions.assertNotNull(createdPerson.getId());
@@ -130,6 +129,19 @@ class PersonControllerTest extends AbstractIntegrationTest {
 
         PersonDTO createdPerson =  objectMapper.readValue(content, PersonDTO.class);
         person = createdPerson;
+
+        Assertions.assertNotNull(createdPerson.getId());
+        Assertions.assertNotNull(createdPerson.getFirstName());
+        Assertions.assertNotNull(createdPerson.getLastName());
+        Assertions.assertNotNull(createdPerson.getAddress());
+        Assertions.assertNotNull(createdPerson.getGender());
+
+        Assertions.assertTrue(createdPerson.getId() > 0);
+
+        Assertions.assertEquals("Richard", createdPerson.getFirstName());
+        Assertions.assertEquals("Stallman", createdPerson.getLastName());
+        Assertions.assertEquals("New York city", createdPerson.getAddress());
+        Assertions.assertEquals("M", createdPerson.getGender());
     }
 
     private void mockPerson() {
