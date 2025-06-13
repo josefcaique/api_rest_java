@@ -1,4 +1,4 @@
-package com.josef.api_rest.unittests.services;
+package com.josef.api_rest.services;
 
 import com.josef.api_rest.controllers.PersonController;
 import com.josef.api_rest.controllers.TestLogController;

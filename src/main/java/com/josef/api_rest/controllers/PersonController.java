@@ -2,7 +2,7 @@ package com.josef.api_rest.controllers;
 
 import com.josef.api_rest.controllers.docs.PersonControllerDocs;
 import com.josef.api_rest.data.dto.v1.PersonDTO;
-import com.josef.api_rest.unittests.services.PersonServices;
+import com.josef.api_rest.services.PersonServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

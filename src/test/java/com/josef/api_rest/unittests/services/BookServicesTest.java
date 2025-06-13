@@ -5,6 +5,7 @@ import com.josef.api_rest.exception.RequiredObjectIsNullException;
 import com.josef.api_rest.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.josef.api_rest.model.Book;
 import com.josef.api_rest.repository.BookRepository;
+import com.josef.api_rest.services.BookService;
 import com.josef.api_rest.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

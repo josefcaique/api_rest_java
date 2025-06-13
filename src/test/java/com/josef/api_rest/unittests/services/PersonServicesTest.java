@@ -5,6 +5,7 @@ import com.josef.api_rest.exception.RequiredObjectIsNullException;
 import com.josef.api_rest.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.josef.api_rest.model.Person;
 import com.josef.api_rest.repository.PersonRepository;
+import com.josef.api_rest.services.PersonServices;
 import com.josef.api_rest.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
