@@ -24,11 +24,7 @@ public class PersonController implements PersonControllerDocs {
     @GetMapping(value = "/v1/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override
     public PersonDTO findById(@PathVariable("id") Long id){
-        var person = services.findById(id);
-        person.setBirthDay(new Date());
-        person.setPhoneNumber("+55 (34) 98765-4321");
-        person.setSensitiveData("Foo Bar");
-        return person;
+        return services.findById(id);
     }
 
     @GetMapping(value = "/v1", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -56,13 +52,10 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/v1/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PatchMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @Override
     public PersonDTO disablePerson(@PathVariable("id") Long id){
-        var person = services.findById(id);
-        person.setBirthDay(new Date());
-        person.setPhoneNumber("+55 (34) 98765-4321");
-        person.setSensitiveData("Foo Bar");
-        return person;
+        return services.disablePerson(id);
     }
 
 }

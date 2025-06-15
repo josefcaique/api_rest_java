@@ -41,6 +41,7 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     @JsonSerialize(using = GenderSerializer.class)
     private String gender;
 
+    private Boolean enabled;
 
     private String sensitiveData;
 
@@ -110,6 +111,16 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     public void setSensitiveData(String sensitiveData) {
         this.sensitiveData = sensitiveData;
     }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
