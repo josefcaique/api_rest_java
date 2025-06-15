@@ -36,6 +36,8 @@ public class PersonDTO implements Serializable {
     @JsonSerialize(using = GenderSerializer.class)
     private String gender;
 
+    private Boolean enabled;
+
     private String sensitiveData;
 
     public PersonDTO(){}
@@ -88,6 +90,10 @@ public class PersonDTO implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public Boolean getEnabled() { return enabled; }
+
+    public void setEnabled(Boolean enabled) { this.enabled = enabled; }
 
     public Date getBirthDay() { return birthDay;}
 
