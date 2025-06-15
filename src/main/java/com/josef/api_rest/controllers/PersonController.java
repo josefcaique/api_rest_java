@@ -52,7 +52,7 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PatchMapping(value = "/v1/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override
     public PersonDTO disablePerson(@PathVariable("id") Long id){
         return services.disablePerson(id);
