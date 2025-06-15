@@ -21,7 +21,6 @@ public class PersonController implements PersonControllerDocs {
     @Autowired
     private PersonServices services;
 
-
     @GetMapping(value = "/v1/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override
     public PersonDTO findById(@PathVariable("id") Long id){
@@ -57,6 +56,13 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity.noContent().build();
     }
 
-
+    @GetMapping(value = "/v1/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public PersonDTO disablePerson(@PathVariable("id") Long id){
+        var person = services.findById(id);
+        person.setBirthDay(new Date());
+        person.setPhoneNumber("+55 (34) 98765-4321");
+        person.setSensitiveData("Foo Bar");
+        return person;
+    }
 
 }
