@@ -127,6 +127,33 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
         Assertions.assertTrue(createdPerson.getEnabled());
     }
 
+    @Test
+    @Order(4)
+    void disablePersonTest() throws JsonProcessingException {
+        var content = given(specification)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .pathParam("id", person.getId())
+                .when()
+                .patch("{id}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        PersonDTO createdPerson =  objectMapper.readValue(content, PersonDTO.class);
+        person = createdPerson;
+
+        Assertions.assertNotNull(createdPerson.getId());
+        Assertions.assertTrue(createdPerson.getId() > 0);
+
+        Assertions.assertEquals("Linus", createdPerson.getFirstName());
+        Assertions.assertEquals("Benedict Torvalds", createdPerson.getLastName());
+        Assertions.assertEquals("Helsinki - Finland", createdPerson.getAddress());
+        Assertions.assertEquals("M", createdPerson.getGender());
+        Assertions.assertFalse(createdPerson.getEnabled());
+    }
+
     private void mockPerson() {
         person.setFirstName("Linus");
         person.setLastName("Torvalds");
