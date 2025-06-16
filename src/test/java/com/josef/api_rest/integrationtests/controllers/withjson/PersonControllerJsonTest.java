@@ -154,6 +154,17 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
         Assertions.assertFalse(createdPerson.getEnabled());
     }
 
+    @Test
+    @Order(5)
+    void deletePersonTest() throws JsonProcessingException {
+        var content = given(specification)
+                .pathParam("id", person.getId())
+                .when()
+                .delete("{id}")
+                .then()
+                .statusCode(204);
+    }
+
     private void mockPerson() {
         person.setFirstName("Linus");
         person.setLastName("Torvalds");
