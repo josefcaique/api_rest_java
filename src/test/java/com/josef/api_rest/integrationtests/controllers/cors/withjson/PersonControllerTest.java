@@ -1,4 +1,4 @@
-package com.josef.api_rest.integrationtests.controllers.withjson;
+package com.josef.api_rest.integrationtests.controllers.cors.withjson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
