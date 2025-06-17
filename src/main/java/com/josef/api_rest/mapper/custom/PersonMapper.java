@@ -15,7 +15,6 @@ public class PersonMapper {
         dto.setId(person.getId());
         dto.setFirstName(person.getFirstName());
         dto.setLastName(person.getLastName());
-        dto.setBirthDay(new Date());
         dto.setAddress(person.getAddress());
         return dto;
     }

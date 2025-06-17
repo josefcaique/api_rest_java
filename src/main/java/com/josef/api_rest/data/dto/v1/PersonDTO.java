@@ -34,8 +34,6 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String phoneNumber;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date birthDay;
     private String address;
 
     @JsonSerialize(using = GenderSerializer.class)
@@ -43,7 +41,6 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
 
     private Boolean enabled;
 
-    private String sensitiveData;
 
     public PersonDTO(){}
 
@@ -96,21 +93,11 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
         this.gender = gender;
     }
 
-    public Date getBirthDay() { return birthDay;}
-
-    public void setBirthDay(Date birthDay) { this.birthDay = birthDay; }
 
     public String getPhoneNumber() { return phoneNumber; }
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public String getSensitiveData() {
-        return sensitiveData;
-    }
-
-    public void setSensitiveData(String sensitiveData) {
-        this.sensitiveData = sensitiveData;
-    }
 
     public Boolean getEnabled() {
         return enabled;
