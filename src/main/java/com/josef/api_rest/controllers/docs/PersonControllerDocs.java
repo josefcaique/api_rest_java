@@ -48,7 +48,8 @@ public interface PersonControllerDocs {
             })
     ResponseEntity<Page<PersonDTO>> findAll(
             @RequestParam(value="page", defaultValue ="0") Integer page,
-            @RequestParam(value="size", defaultValue ="12") Integer size
+            @RequestParam(value="size", defaultValue ="12") Integer size,
+            @RequestParam(value="direction", defaultValue = "asc") String direction
     );
 
     @Operation(summary = "Create a person",
