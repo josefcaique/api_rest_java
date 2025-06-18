@@ -9,6 +9,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,6 +19,7 @@ import java.util.Objects;
 //@JsonFilter("PersonFilter")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Person")
+@Relation(collectionRelation="people")
 public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long SerialVersionUID = 1L;
