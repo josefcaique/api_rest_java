@@ -12,8 +12,6 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
@@ -23,7 +21,6 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
-import static com.josef.api_rest.mapper.ObjectMapper.parseListObjects;
 import static com.josef.api_rest.mapper.ObjectMapper.parseObject;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -69,7 +66,8 @@ public class PersonServices {
                                 String.valueOf(pageable.getSort())))
                 .withSelfRel();
 
-        return assembler.toModel(peopleWithLinks, findAllLink);
+        return assembler.toModel(peopleWithLinks,
+                findAllLink);
     }
 
     public PersonDTO create(PersonDTO person) {

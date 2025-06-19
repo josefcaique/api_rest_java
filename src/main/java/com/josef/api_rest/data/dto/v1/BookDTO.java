@@ -7,6 +7,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Book")
+@Relation(collectionRelation="Book")
 public class BookDTO extends RepresentationModel<BookDTO> implements Serializable {
 
     @Serial
