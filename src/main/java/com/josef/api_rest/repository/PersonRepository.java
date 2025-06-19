@@ -1,7 +1,7 @@
 package com.josef.api_rest.repository;
 
 import com.josef.api_rest.model.Person;
-import org.hibernate.query.Page;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
