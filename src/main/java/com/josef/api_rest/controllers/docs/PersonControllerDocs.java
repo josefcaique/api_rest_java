@@ -29,7 +29,6 @@ public interface PersonControllerDocs {
             })
     PersonDTO findById(@PathVariable("id") Long id);
 
-    @GetMapping(value = "/v1", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Operation(summary = "Find all people",
             description = "Find all people",
             tags = {"People"},
@@ -51,7 +50,6 @@ public interface PersonControllerDocs {
     );
 
 
-    @GetMapping(value = "/v1", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Operation(summary = "Find people by firstName",
             description = "Find people by their first names",
             tags = {"People"},
