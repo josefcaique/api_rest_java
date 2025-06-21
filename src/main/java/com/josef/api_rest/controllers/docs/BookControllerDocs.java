@@ -50,6 +50,7 @@ public interface BookControllerDocs {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
             })
+
     ResponseEntity<PagedModel<EntityModel<BookDTO>>> findAll(
             @RequestParam(value="page", defaultValue ="0") Integer page,
             @RequestParam(value="size", defaultValue ="12") Integer size,
