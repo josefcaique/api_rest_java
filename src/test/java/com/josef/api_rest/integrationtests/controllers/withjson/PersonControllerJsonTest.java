@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.josef.api_rest.config.TestConfigs;
 import com.josef.api_rest.integrationtests.dto.PersonDTO;
+import com.josef.api_rest.integrationtests.dto.wrapper.WrapperPersonDTO;
 import com.josef.api_rest.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -173,6 +174,7 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
     void findAll() throws JsonProcessingException {
         var content = given(specification)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
+                .queryParams("page", 3,  "size", 12, "direction", "asc")
                 .when()
                 .get()
                 .then()
@@ -181,7 +183,8 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
                 .body()
                 .asString();
 
-        List<PersonDTO> people = objectMapper.readValue(content, new TypeReference<List<PersonDTO>>() {});
+        WrapperPersonDTO wrapper = objectMapper.readValue(content, WrapperPersonDTO.class);
+        List<PersonDTO> people = wrapper.getEmbedded().getPeople();
 
         PersonDTO personOne =  people.get(0);
         person = personOne;
@@ -189,9 +192,9 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
         Assertions.assertNotNull(personOne.getId());
         Assertions.assertTrue(personOne.getId() > 0);
 
-        Assertions.assertEquals("Ayrton", personOne.getFirstName());
-        Assertions.assertEquals("Senna", personOne.getLastName());
-        Assertions.assertEquals("São Paulo - Brasil", personOne.getAddress());
+        Assertions.assertEquals("Amby", personOne.getFirstName());
+        Assertions.assertEquals("Dering", personOne.getLastName());
+        Assertions.assertEquals("apt 2", personOne.getAddress());
         Assertions.assertEquals("M", personOne.getGender());
         Assertions.assertTrue(personOne.getEnabled());
 
