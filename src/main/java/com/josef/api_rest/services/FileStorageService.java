@@ -2,10 +2,13 @@ package com.josef.api_rest.services;
 
 import com.josef.api_rest.config.FileStorageConfig;
 import com.josef.api_rest.controllers.FileStorageController;
+import com.josef.api_rest.exception.FileNotFoundException;
 import com.josef.api_rest.exception.FileStorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,6 +55,20 @@ public class FileStorageService {
         } catch (Exception e) {
             logger.error("Could not store file " + fileName + " please try again");
             throw new FileStorageException("Could not store file " + fileName + " please try again",e);
+        }
+    }
+
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            }
+            throw new FileNotFoundException("File " + fileName + " not found!");
+        } catch (Exception e) {
+            logger.error("File " + fileName + " not found!");
+            throw new FileNotFoundException("File " + fileName + " not found!", e);
         }
     }
 }
