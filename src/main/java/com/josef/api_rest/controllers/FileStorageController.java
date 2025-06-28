@@ -59,6 +59,7 @@ public class FileStorageController implements FileStorageControllerDocs {
             contentType = "application/octet-stream";
         }
 
+
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
