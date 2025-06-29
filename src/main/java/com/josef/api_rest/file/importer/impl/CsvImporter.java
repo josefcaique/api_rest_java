@@ -2,7 +2,6 @@ package com.josef.api_rest.file.importer.impl;
 
 import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.file.importer.contract.FileImporter;
-import com.josef.api_rest.model.Person;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Component;
