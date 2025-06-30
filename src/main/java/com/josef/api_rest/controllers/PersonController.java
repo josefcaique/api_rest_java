@@ -45,9 +45,9 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity.ok(services.findAll(pageable));
     }
 
-    @PostMapping(value = "/v1", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PostMapping(value = "/v1/dataCreation", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override
-    public List<PersonDTO> dataCreation(MultipartFile file) {
+    public List<PersonDTO> dataCreation(@RequestParam("file") MultipartFile file) {
         return services.dataCreation(file);
     }
 

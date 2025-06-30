@@ -88,14 +88,12 @@ public class PersonServices {
         return dto;
     }
 
-    public List<PersonDTO> dataCreation(MultipartFile file) throws Exception {
+    public List<PersonDTO> dataCreation(MultipartFile file) {
         logger.info("Importing people from file");
-
-        if (file.isEmpty()) throw new BadRequestException("Please set a valid file!");
 
         try(InputStream inputStream = file.getInputStream()) {
             String filename = Optional.ofNullable(file.getOriginalFilename())
-                    .orElseThrow(() -> new BadRequestException("File name cannot be null"));
+                    .orElseThrow(() ->  new BadRequestException("File name cannot be null"));
             FileImporter importer = this.importer.getImporter(filename);
 
             List<Person> entities = importer.importFile(inputStream).stream()
