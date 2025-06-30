@@ -110,7 +110,7 @@ public class PersonServices {
 
 
         } catch (Exception e) {
-            throw new FileStorageException(e.getMessage());
+            throw new FileStorageException("Error processing the file!");
         }
     }
 
