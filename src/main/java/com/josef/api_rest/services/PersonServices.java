@@ -95,6 +95,7 @@ public class PersonServices {
             String filename = Optional.ofNullable(file.getOriginalFilename())
                     .orElseThrow(() ->  new BadRequestException("File name cannot be null"));
             FileImporter importer = this.importer.getImporter(filename);
+            System.out.println(importer);
 
             List<Person> entities = importer.importFile(inputStream).stream()
                     .map(dto -> repository.save(parseObject(dto, Person.class)))
@@ -109,7 +110,7 @@ public class PersonServices {
 
 
         } catch (Exception e) {
-            throw new FileStorageException("Error processing the file!");
+            throw new FileStorageException(e.getMessage());
         }
     }
 
