@@ -6,6 +6,9 @@ import com.josef.api_rest.data.dto.v1.PersonDTO;
 import com.josef.api_rest.exception.FileStorageException;
 import com.josef.api_rest.exception.RequiredObjectIsNullException;
 import com.josef.api_rest.exception.ResourceNotFoundException;
+import com.josef.api_rest.file.exporter.MediaTypes;
+import com.josef.api_rest.file.exporter.contract.FileExporter;
+import com.josef.api_rest.file.exporter.factory.FileExporterFactory;
 import com.josef.api_rest.file.importer.contract.FileImporter;
 import com.josef.api_rest.file.importer.factory.FileImporterFactory;
 import com.josef.api_rest.mapper.custom.PersonMapper;
@@ -16,6 +19,7 @@ import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -48,7 +52,8 @@ public class PersonServices {
     FileImporterFactory importer;
 
     @Autowired
-    PersonMapper converter;
+    FileExporterFactory exporter;
+
 
     @Autowired
     PagedResourcesAssembler<PersonDTO> assembler;
@@ -74,6 +79,21 @@ public class PersonServices {
 
         var people = repository.findPeopleByName(firstName, pageable);
         return buildPagedModel(pageable, people);
+    }
+
+    public Resource exportData(Pageable pageable, String acceptHeader){
+        logger.info("Exporting a people page!");
+
+        var people = repository.findAll(pageable)
+                .map(person -> parseObject(person, PersonDTO.class))
+                .getContent();
+        try {
+            FileExporter exporter = this.exporter.getExporter(acceptHeader);
+            return exporter.exportFile(people);
+        } catch (Exception e) {
+            throw new RuntimeException("Error during file export", e);
+        }
+
     }
 
 
@@ -165,8 +185,7 @@ public class PersonServices {
                                         String.valueOf(pageable.getSort())))
                 .withSelfRel();
 
-        return assembler
-                .toModel(peopleWithLinks, findAllLink);
+        return assembler.toModel(peopleWithLinks, findAllLink);
     }
 
     private void addHateoasLinks(PersonDTO dto) {
@@ -178,6 +197,8 @@ public class PersonServices {
         dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("UPDATE"));
         dto.add(linkTo(methodOn(PersonController.class).disablePerson(dto.getId())).withRel("disable").withType("PATCH"));
         dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
+        dto.add(linkTo(methodOn(PersonController.class).exportPage(1, 12, "asc",
+                MediaTypes.APPLICATION_XLSX_VALUE)).withRel("exportPage").withType("GET"));
     }
 
 }
