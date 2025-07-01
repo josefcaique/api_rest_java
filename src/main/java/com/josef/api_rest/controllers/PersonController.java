@@ -45,6 +45,11 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity.ok(services.findAll(pageable));
     }
 
+    @Override
+    public ResponseEntity<PagedModel<EntityModel<PersonDTO>>> exportPage(Integer page, Integer size, String direction) {
+        return null;
+    }
+
     @PostMapping(value = "/v1/dataCreation", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override
     public List<PersonDTO> dataCreation(@RequestParam("file") MultipartFile file) {
