@@ -74,7 +74,7 @@ public interface PersonControllerDocs {
     ResponseEntity<Resource> exportPage(
             @RequestParam(value="page", defaultValue ="0") Integer page,
             @RequestParam(value="size", defaultValue ="12") Integer size,
-            @RequestParam(value="direction", defaultValue = "asc") String direction
+            @RequestParam(value="direction", defaultValue = "asc") String direction,
             HttpServletRequest request
     );
 
