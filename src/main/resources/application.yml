@@ -19,6 +19,9 @@ spring:
       file-size-threshold: 2KB
       max-file-size: 200MB
       max-request-size: 215MB
+email:
+  subject: "Default Subject"
+  message: "Default Message"
 file:
   upload-dir: D:/Java Learning 2/api_rest/UploadDir
 server:
