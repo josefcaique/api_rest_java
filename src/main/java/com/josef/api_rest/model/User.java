@@ -23,7 +23,7 @@ public class User implements UserDetails, Serializable {
     private Long id;
 
     @Column(name = "user_name", unique = true)
-    private String username;
+    private String userName;
 
     @Column(name="full_name")
     private String fullName;
@@ -70,7 +70,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.userName;
     }
 
     @Override
@@ -101,8 +101,8 @@ public class User implements UserDetails, Serializable {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 
     public String getFullName() {
@@ -163,8 +163,8 @@ public class User implements UserDetails, Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(id,
-                user.id) && Objects.equals(username,
-                user.username) && Objects.equals(fullName,
+                user.id) && Objects.equals(userName,
+                user.userName) && Objects.equals(fullName,
                 user.fullName) && Objects.equals(password,
                 user.password) && Objects.equals(accountNonExpired,
                 user.accountNonExpired) && Objects.equals(accountNonLocked,
@@ -177,7 +177,7 @@ public class User implements UserDetails, Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id,
-                username,
+                userName,
                 fullName,
                 password,
                 accountNonExpired,
