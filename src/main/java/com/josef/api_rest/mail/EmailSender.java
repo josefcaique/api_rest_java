@@ -32,7 +32,7 @@ public class EmailSender implements Serializable {
         this.mailSender = mailSender;
     }
 
-    public EmailSender To(String to) {
+    public EmailSender to(String to) {
         this.to = to;
         this.recipients = getRecipients(to);
         return this;
