@@ -31,6 +31,6 @@ public interface EmailControllerDocs {
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
             })
-    ResponseEntity<String> sendEmailWithAttachment(EmailRequestDTO emailRequestJson, MultipartFile multipartFile);
+    ResponseEntity<String> sendEmailWithAttachment(String emailRequestJson, MultipartFile multipartFile);
 
 }
