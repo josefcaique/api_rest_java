@@ -28,6 +28,11 @@ email:
   message: "Default Message"
 file:
   upload-dir: D:/Java Learning 2/api_rest/UploadDir
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-length: 3600000
 server:
   port: 8888
 cors:
