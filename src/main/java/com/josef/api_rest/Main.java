@@ -31,8 +31,8 @@ public class Main {
 		passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2Encoder);
 		var pass1 = passwordEncoder.encode("admin123");
 		var pass2 = passwordEncoder.encode("admin1234");
-		System.out.println(pass1);
-		System.out.println(pass2);
+		//System.out.println(pass1);
+		//System.out.println(pass2);
 	}
 
 }

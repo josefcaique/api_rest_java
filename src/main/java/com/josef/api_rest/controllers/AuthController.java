@@ -1,14 +1,15 @@
 package com.josef.api_rest.controllers;
 
 import com.josef.api_rest.data.dto.v1.security.AccountCredentialsDTO;
-import com.josef.api_rest.data.dto.v1.security.TokenDTO;
 import com.josef.api_rest.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class AuthController {
 
     @Operation(summary = "Authenticates an user and returns a token")
     @PostMapping("/signin")
-    public ResponseEntity<?> signIn(AccountCredentialsDTO credentials) {
+    public ResponseEntity<?> signIn(@RequestBody AccountCredentialsDTO credentials) {
         if (credentialsIsInvalid(credentials)) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 
         var token = service.signIn(credentials);

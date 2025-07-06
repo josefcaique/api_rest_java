@@ -8,6 +8,7 @@ import com.josef.api_rest.data.dto.v1.security.TokenDTO;
 import com.josef.api_rest.exception.InvalidJwtAuthenticationException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.nio.charset.StandardCharsets;
@@ -90,11 +90,10 @@ public class JwtTokenProvider {
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
 
-        if (StringUtils.isEmpty(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring("Bearer ".length());
-        } else {
-            throw new InvalidJwtAuthenticationException("Invalid JWT Token");
         }
+        return null;
 
     }
 
