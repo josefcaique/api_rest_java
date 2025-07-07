@@ -37,4 +37,11 @@ public class AuthService {
         var tokenResponse = tokenProvider.createAccessToken(credentials.getUsername(), user.getRoles());
         return ResponseEntity.ok(tokenResponse);
     }
+
+    public ResponseEntity<TokenDTO> refreshToken(String username, String refreshToken) {
+        var user = repository.findUserByName(username);
+        if (user == null) throw new UsernameNotFoundException("Username not exist!");
+        TokenDTO token = tokenProvider.refreshToken(refreshToken);
+        return ResponseEntity.ok(token);
+    }
 }
