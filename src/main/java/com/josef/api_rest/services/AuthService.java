@@ -89,6 +89,10 @@ public class AuthService {
         entity.setCredentialsNonExpired(true);
         entity.setEnabled(true);
 
-        return parseObject(repository.save(entity), AccountCredentialsDTO.class);
+        var dto = repository.save(entity);
+        return new AccountCredentialsDTO(
+                dto.getUsername(),
+                dto.getPassword(),
+                dto.getFullName());
     }
 }
