@@ -62,7 +62,7 @@ class PersonServicesTest extends AbstractIntegrationTest{
 
         assertTrue(result.getLinks().stream()
                 .anyMatch(link -> link.getRel().value().equals("findAll")
-                        && link.getHref().endsWith("api/person/v1")
+                        && link.getHref().endsWith("api/person/v1?page=1&size=12&direction=asc")
                         && Objects.equals(link.getType(), "GET"))
         );
 
@@ -112,7 +112,7 @@ class PersonServicesTest extends AbstractIntegrationTest{
 
         assertTrue(result.getLinks().stream()
                 .anyMatch(link -> link.getRel().value().equals("findAll")
-                        && link.getHref().endsWith("api/person/v1")
+                        && link.getHref().endsWith("api/person/v1?page=1&size=12&direction=asc")
                         && Objects.equals(link.getType(), "GET"))
         );
 
@@ -188,7 +188,7 @@ class PersonServicesTest extends AbstractIntegrationTest{
 
         assertTrue(result.getLinks().stream()
                 .anyMatch(link -> link.getRel().value().equals("findAll")
-                        && link.getHref().endsWith("api/person/v1")
+                        && link.getHref().endsWith("api/person/v1?page=1&size=12&direction=asc")
                         && Objects.equals(link.getType(), "GET"))
         );
 
