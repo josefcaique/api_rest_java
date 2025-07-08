@@ -56,6 +56,7 @@ class PersonControllerTest extends AbstractIntegrationTest {
                 .body()
                 .as(TokenDTO.class);
 
+
         Assertions.assertNotNull(tokenDto.getAccessToken());
         Assertions.assertNotNull(tokenDto.getRefreshToken());
     }
