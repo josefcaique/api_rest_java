@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.josef.api_rest.config.TestConfigs;
 
+import com.josef.api_rest.integrationtests.dto.AccountCredentialsDTO;
 import com.josef.api_rest.integrationtests.dto.PersonDTO;
+import com.josef.api_rest.integrationtests.dto.TokenDTO;
 import com.josef.api_rest.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -25,6 +27,7 @@ class PersonControllerTest extends AbstractIntegrationTest {
     private static RequestSpecification specification;
     private static ObjectMapper objectMapper;
     private static PersonDTO person;
+    private static TokenDTO tokenDto;
 
     @BeforeAll
     static void setUp() {
@@ -32,15 +35,39 @@ class PersonControllerTest extends AbstractIntegrationTest {
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         person = new PersonDTO();
+
+        tokenDto = new TokenDTO();
     }
 
     @Test
     @Order(1)
+    void signin() {
+        AccountCredentialsDTO credentials = AccountCredentialsDTO.createAccountCredentialsDTO("leandro", "admin123");
+        tokenDto = given()
+                .basePath("/auth/signin")
+                .port(TestConfigs.SERVER_PORT)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(credentials)
+                .when()
+                .post()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(TokenDTO.class);
+
+        Assertions.assertNotNull(tokenDto.getAccessToken());
+        Assertions.assertNotNull(tokenDto.getRefreshToken());
+    }
+
+    @Test
+    @Order(2)
     void create() throws JsonProcessingException {
         mockPerson();
 
         specification = new RequestSpecBuilder()
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_JOSEF)
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " +tokenDto.getAccessToken())
                 .setBasePath("api/person/v1")
                 .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
@@ -78,12 +105,13 @@ class PersonControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void createWithWrongOrigin() throws JsonProcessingException {
         mockPerson();
 
         specification = new RequestSpecBuilder()
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_SEMERU)
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " +tokenDto.getAccessToken())
                 .setBasePath("api/person/v1")
                 .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
@@ -106,10 +134,11 @@ class PersonControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void findById() throws JsonProcessingException {
         specification = new RequestSpecBuilder()
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_JOSEF)
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " +tokenDto.getAccessToken())
                 .setBasePath("api/person/v1")
                 .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
@@ -147,10 +176,11 @@ class PersonControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void findByIdWithWrongOrigin() throws JsonProcessingException {
         specification = new RequestSpecBuilder()
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_SEMERU)
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " +tokenDto.getAccessToken())
                 .setBasePath("api/person/v1")
                 .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
