@@ -20,7 +20,7 @@ public class AccountCredentialsDTO implements Serializable {
         this.password = password;
         this.fullname = fullname;
     }
-    private AccountCredentialsDTO(String username, String password) {
+    public AccountCredentialsDTO(String username, String password) {
         this.username = username;
         this.password = password;
     }
