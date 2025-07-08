@@ -26,8 +26,7 @@ public class AccountCredentialsDTO implements Serializable {
     }
 
     public static AccountCredentialsDTO createAccountCredentialsDTO(String username, String password) {
-        return new AccountCredentialsDTO(username,
-                password);
+        return new AccountCredentialsDTO(username, password);
     }
 
     public String getUsername() {
