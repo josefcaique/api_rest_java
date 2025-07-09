@@ -37,6 +37,7 @@ jobs:
       working-directory: ./JavaLearning2
       run: docker compose build
 
+
     - name: Push to Docker Hub Container Registry
       run: |
         docker tag ${{ secrets.DOCKER_USERNAME }}/api-rest:latest ${{ secrets.DOCKER_USERNAME }}/api-rest:${{ github.run_id }}
