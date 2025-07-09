@@ -28,11 +28,11 @@ jobs:
         cache: maven
 
     - name: Build Application .jar
-      working-directory: ./api-rest
+      working-directory: ./Java Learning 2/api-rest
       run: mvn clean package
 
     - name: Docker Compose Build
-      working-directory: ./
+      working-directory: ./api-rest
       run: docker compose build
 
     - name: Push to Docker Hub Container Registry
