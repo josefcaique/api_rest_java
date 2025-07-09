@@ -1,0 +1,36 @@
+services:
+  db:
+    image: mysql:9.1.0
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: jpaspringboot
+    ports:
+      - "3308:3306"
+    expose:
+      - 3306
+    networks:
+      - josef-network
+  api-rest:
+    image: josefcaique/api-rest
+    restart: always
+    build: ./api_rest
+    working_dir: /api_rest
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING.DATASOURCE.URL: jdbc:mysql://db:3306/jpaspringboot?useTimeZone=true&serverTimeZone=UTC
+      SPRING.DATASOURCE.USERNAME: root
+      SPRING.DATASOURCE.PASSWORD: admin
+    command: mvn spring-boot:run
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    networks:
+      - josef-network
+networks:
+  josef-network:
+    driver: bridge
