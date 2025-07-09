@@ -39,7 +39,7 @@ jobs:
 
     - name: Build Application .jar
       working-directory: ./api_rest
-      run: mvn clean package -DskipTests
+      run: mvn clean package -DskipTests -Dmaven.test.skip=true
 
     - name: Docker Compose Build
       working-directory: ./api_rest
