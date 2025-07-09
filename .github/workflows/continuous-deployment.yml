@@ -42,7 +42,7 @@ jobs:
       run: mvn clean package
 
     - name: Docker Compose Build
-      #working-directory: .
+      working-directory: ./api_rest
       run: docker compose build
 
 
