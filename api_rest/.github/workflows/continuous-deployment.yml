@@ -30,7 +30,7 @@ jobs:
         cache: maven
 
     - name: Build Application .jar
-      working-directory: ./JavaLearning2/api-rest
+      working-directory: ./JavaLearning2/api_rest
       run: mvn clean package
 
     - name: Docker Compose Build
