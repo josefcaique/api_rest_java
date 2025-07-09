@@ -27,7 +27,7 @@ email:
   subject: "Default Subject"
   message: "Default Message"
 file:
-  upload-dir: D:/Java Learning 2/api_rest/UploadDir
+  upload-dir: /home/runner/work/api_rest_java/UploadDir
 security:
   jwt:
     token:
