@@ -14,6 +14,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: 🔍 Debug - Mostrar estrutura de arquivos
+      run: |
+        echo "Diretório atual:"
+        pwd
+        echo "Conteúdo da raiz do repositório:"
+        ls -la
+        echo "Conteúdo da pasta JavaLearning2:"
+        ls -la JavaLearning2 || echo "Pasta JavaLearning2 não encontrada"
+        echo "Conteúdo da pasta JavaLearning2/api-rest:"
+        ls -la JavaLearning2/api-rest || echo "Pasta JavaLearning2/api-rest não encontrada"
+
+
     - name: Login to Docker hub
       uses: docker/login-action@v3
       with:
