@@ -3,9 +3,9 @@ spring:
     name: rest-spring-boot
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jpaspringboot?useTimeZone=true&serverTimeZone=UTC
+    url: {JDBC_URL}
     username: root
-    password: admin
+    password: Admin12345!
   jpa:
     hibernate:
       ddl-auto: none
