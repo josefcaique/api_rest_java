@@ -158,7 +158,3 @@ O token deve ser usado no header `Authorization: Bearer {token}` para chamadas a
 💻 [GitHub](https://github.com/josefcaique)
 
 ---
-
-## 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
